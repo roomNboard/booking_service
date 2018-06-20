@@ -11,7 +11,6 @@ const app = express();
 
 if (app.get('env') === 'development') {
   app.use(morgan('dev'));
-  debug('morgan enabled...');
 }
 
 app.use(bodyParser.json());
