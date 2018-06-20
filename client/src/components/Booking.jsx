@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import axios from 'axios';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
@@ -9,6 +9,10 @@ import BookingFooter from './booking-footer/BookingFooter';
 import BookingCalendar from './booking-form/BookingCalendar';
 import GuestPicker from './booking-form/GuestPicker';
 import PricingQuote from './booking-form/pricing-quote/PricingQuote';
+
+const roomIdAdjustment = -10000000 + 1;
+
+if (!global._babelPolyfill) require('babel-polyfill');
 
 const moment = extendMoment(Moment);
 
@@ -45,7 +49,7 @@ class Booking extends Component {
   }
 
   componentDidMount() {
-    this.getRoomListing(Math.floor(Math.random() * (99)) + 1000);
+    this.getRoomListing(parseInt(document.location.pathname.replace('/', ''), 10) + roomIdAdjustment);
   }
 
   onGuestPickerFocus() {

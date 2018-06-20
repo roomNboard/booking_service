@@ -5,10 +5,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const srcFolder = path.join(__dirname, '/client/src/');
 
 module.exports = {
-  entry: { booking: path.join(srcFolder, '/js/index.jsx') },
+  entry: { booking: path.join(srcFolder, '/index.jsx') },
   resolve: { extensions: ['.js', '.jsx'] },
   output: {
-    path: path.resolve(__dirname, 'public/dist'),
+    path: path.join(__dirname, 'public/dist'),
     filename: '[name].js',
   },
   module: {
