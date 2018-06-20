@@ -27,7 +27,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static(path.join(__dirname, '../public/dist')));
+app.use('/:id', express.static(path.join(__dirname, '../public/dist')));
 
 app.use('/booking', roomRoutes);
 
