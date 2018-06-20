@@ -32,7 +32,6 @@ const queryListingInfoByRoomId = (id, name = 'listing', callback) => {
     if (err) {
       callback(err, null, name);
     } else {
-      debug(rows[0]);
       callback(null, rows, name);
     }
   });
@@ -43,7 +42,6 @@ const queryOwnerInfoByRoomId = (id, name = 'owner', callback) => {
     if (err) {
       callback(err, null, name);
     } else {
-      debug(rows[0]);
       callback(null, rows, name);
     }
   });
@@ -54,7 +52,6 @@ const queryListingReviewsByRoomId = (id, name = 'reviews', callback) => {
     if (err) {
       callback(err, null, name);
     } else {
-      debug(rows[0]);
       callback(null, rows, name);
     }
   });
@@ -65,7 +62,6 @@ const queryBookingsByRoomId = (id, name = 'bookings', callback) => {
     if (err) {
       callback(err, null, name);
     } else {
-      debug(rows[0]);
       callback(null, rows, name);
     }
   });
