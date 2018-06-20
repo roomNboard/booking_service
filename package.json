@@ -1,0 +1,61 @@
+{
+  "name": "booking_service",
+  "version": "1.0.0",
+  "description": "booking service for sdc phase",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roomNboard/booking_service.git"
+  },
+  "keywords": [
+    "booking",
+    "service",
+    "testing"
+  ],
+  "author": "David",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roomNboard/booking_service/issues"
+  },
+  "homepage": "https://github.com/roomNboard/booking_service#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.8.2",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.0",
+    "nodemon": "^1.17.5",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^2.1.5"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "chance": "^1.0.16",
+    "debug": "^3.1.0",
+    "express": "^4.16.3",
+    "moment": "^2.22.2",
+    "moment-range": "^4.0.1",
+    "morgan": "^1.9.0",
+    "mysql": "^2.15.0",
+    "prop-types": "^15.6.1",
+    "react": "^16.4.0",
+    "react-dates": "^16.7.0",
+    "react-dom": "^16.4.0",
+    "react-with-styles": "^3.2.0"
+  }
+}

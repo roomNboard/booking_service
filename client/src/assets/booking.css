@@ -1,0 +1,676 @@
+#booking {
+
+}
+
+/*OUTER APP CONTAINER*/
+
+.position-booking {
+  width: 376px;
+  z-index: 3;
+}
+
+.container-booking {
+  font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding-left: 24px;
+  padding-right: 24px;
+  margin: 0px;
+  border: 1px solid #e4e4e4;
+  background-color: #ffffff;
+  color: #484848;
+  line-height: 1.43;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+.booking-parent-spacing {
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.booking-header-parent {
+
+}
+
+.booking-form-parent {
+
+}
+
+.booking-footer-parent {
+
+}
+
+/*
+---------------- FLEX BAR STYLES  ----------------
+*/
+
+/*
+-- FLEX BAR SPACING --
+*/
+
+.spacing-header {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.spacing-pricing-quote {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.flexbar-spacing-line {
+  border-bottom: 1px solid #DBDBDB;
+}
+
+/*
+-- FLEXBAR CONTAINERS --
+*/
+
+.flexbar-content-container {
+  display: table;
+  width: 100%;
+}
+
+.flexbar-content-text {
+  display: table-cell;
+  width: 100%;
+  vertical-align: middle;
+}
+
+.flexbar-content-icon {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.filter-dropdown-item-smaller-container {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.filter-dropdown-item-larger-container {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.filter-flexbar-buttons-container {
+  display: table;
+  width: 120px;
+}
+
+.filter-flexbar-button-left-container {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.filter-flexbar-button-value-container {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.filter-flexbar-button-right-container {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+}
+
+.guest-count-filter-flexbar-container {
+  display: table;
+  width: 100%;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border-bottom: 0px;
+}
+
+.filter-flexbar-sub-text-container {
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: normal;
+  padding-top: 4px;
+  padding-bottom: 0px;
+  color: rgb(72, 72, 72);
+  display: block;
+}
+
+.filter-flexbar-text-container {
+    display: table;
+    margin-right: 12px;
+}
+
+/*
+-- FLEXBAR TEXT --
+*/
+
+.flexbar-text {
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: normal;
+  word-wrap: break-word;
+  margin: 0px;
+  color: #484848;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  display: inline;
+}
+
+.flexbar-text.large {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  color: rgb(72, 72, 72);
+}
+
+/*
+---------------- BOOKING HEADER SECTION ----------------
+*/
+
+/*
+---------------- HEADER SUB-COMPONENT: PRICING INFO ----------------
+*/
+
+.header-pricing-container {
+  line-height: 10px;
+}
+
+.header-pricing-content-container {
+  display: inline-block;
+}
+
+.header-pricing-dollar-amount {
+  word-wrap: break-word;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  font-size: 19px;
+  line-height: 26px;
+  letter-spacing: normal;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  color: rgb(72, 72, 72);
+  font-weight: 800;
+  display: inline;
+  margin: 0px;
+}
+
+.header-pricing-per-night {
+  font-weight: 600;
+  margin: 0px;
+  word-wrap: break-word;
+  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: normal;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  color: #484848;
+  display: inline;
+}
+
+/*
+---------------- HEADER SUB-COMPONENT: REVIEWS SUMMARY ----------------
+*/
+
+.header-reviews-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  border: 0px;
+  cursor: pointer;
+  margin: 0px;
+  padding: 0px;
+  text-align: left;
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
+  vertical-align: bottom;
+}
+
+.icon-star-container {
+  display: inline-block;
+  color: #008489;
+  font-size: 9px;
+  height: 10px;
+  margin-right: 1px;
+  width: 9px;
+}
+
+.icon-star-container-half {
+  display: inline-block;
+  position: relative;
+  font-size: 9px;
+  height: 10px;
+  margin-right: 1px;
+  width: 9px;
+  color: #008489;
+}
+
+.icon-star {
+  height: 1em;
+  width: 1em;
+  display: block;
+  fill: currentColor;
+}
+
+.icon-star-empty {
+  height: 1em;
+  width: 1em;
+  display: block;
+  fill: #D8D8D8;
+}
+
+.icon-star-half-grey {
+  left: 0px;
+  position: absolute;
+  color: #D8D8D8;
+}
+
+.icon-start-half-green {
+  left: 0px;
+  position: absolute;
+}
+
+.rating-total-text {
+  font-weight: 600;
+  margin: 0px;
+  word-wrap: break-word;
+  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: normal;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  color: #484848;
+  display: inline;
+}
+
+/*
+---------------- BOOKING FORM SECTION ----------------
+*/
+
+#booking-form {
+
+}
+
+.booking-form-fields {
+
+}
+
+.form-fields-label {
+  font-size: 17px;
+  font-weight: 200;
+  margin: 0px;
+  padding: 0px;
+  padding-bottom: 4px;
+}
+
+.form-fields-label-small {
+  font-weight: 600;
+  margin: 0px;
+  word-wrap: break-word;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: normal;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  color: #484848;
+}
+
+.form-fields-spacing-dates {
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.form-fields-spacing-guests {
+  margin-bottom: 16px;
+}
+
+
+/*
+---------------- FORM SUB-COMPONENT DATES FIELDS ----------------
+*/
+
+
+
+/*
+---------------- DATES FIELD CALENDAR BUTTONS ----------------
+*/
+
+.calendar-outer-container {
+  font-weight: 600;
+}
+
+.calendar-inner-container {
+  position: relative;
+  display: block;
+}
+
+.DateInput {
+  padding: 0 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.DateInput.DateInput_1 {
+    white-space: nowrap;
+    padding: 0px 6px;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.DateInput_input.DateInput_input_1.DateInput_input__focused.DateInput_input__focused_2 {
+  white-space: nowrap;
+  color: rgb(0, 122, 135);
+  padding: 0px 6px;
+  overflow: hidden;
+  background: rgb(153, 237, 230);
+  border-color: rgb(153, 237, 230);
+  border-radius: 3px;
+}
+
+.DateInput_input.DateInput_input_1.DateInput_input__focused.DateInput_input__focused_2 text {
+  color: rgb(0, 122, 135);
+}
+
+.DateInput .DateInput_1 {
+  font-weight: normal;
+  font-size: 17px;
+  line-height: 24px;
+  color: #757575;
+  margin: 0px;
+  padding: 0 6px;
+  background: #fff;
+  position: relative;
+  display: inline-block;
+  width: -webkit-calc(50% - 12px);
+  width: -moz-calc(50% - 12px);
+  width: calc(50% - 12px);
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
+.DateInput_input {
+  font-weight: 200;
+  font-size: 19px;
+  line-height: 24px;
+  color: #484848;
+  background-color: #fff;
+  width: 100%;
+  padding: 11px 11px 9px;
+  border: 0;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 2px solid transparent;
+  border-left: 0;
+  border-radius: 0;
+  text-rendering: auto;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: start;
+  margin: 0em;
+  font: 400 11px system-ui;
+}
+
+.CalendarDay__blocked_calendar.CalendarDay__blocked_calendar_4 {
+  border: 1px double rgb(228, 231, 231);
+  color: rgb(220, 224, 224);
+  background: rgb(255, 255, 255);
+  text-decoration: line-through;
+}
+
+.CalendarDay__blocked_calendar.CalendarDay__blocked_calendar_5 {
+  border: 1px double rgb(228, 231, 231);
+  color: rgb(220, 224, 224);
+  background: rgb(255, 255, 255);
+  text-decoration: line-through;
+}
+
+/*
+---------------- GUESTS FIELD  ----------------
+*/
+
+.guests-field-container {
+  margin-bottom: 16px;
+}
+
+/*guests label --> use .form-fields-label*/
+
+/*<small> text, --> .form-fields-label-small */
+
+.guest-picker-container {
+  position: relative;
+}
+
+.guest-picker-trigger-container {
+  width: 100%;
+  position: relative;
+}
+
+.guest-picker-trigger-content-spacing {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.guest-picker-trigger-selected {
+  text-align: left;
+  line-height: normal;
+  display: block;
+  width: 100%;
+  background: rgb(255, 255, 255);
+  border-radius: 2px;
+  padding: 8px;
+  border-width: 1px 1px 2px;
+  border-style: solid;
+  border-color: rgb(219, 219, 219) rgb(219, 219, 219) rgb(0, 132, 137);
+  border-image: initial;
+  border-bottom: 2px solid rgb(0, 132, 137);
+}
+
+.guest-picker-trigger-not-selected {
+  background: #ffffff;
+  text-align: left;
+  border-radius: 2px;
+  padding: 8px;
+  line-height: normal;
+  display: block;
+  width: 100%;
+  border: 1px solid #DBDBDB;
+}
+
+.guest-picker-flexbar-container {
+  margin: 0px;
+  word-wrap: break-word;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: undefined;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  color: #484848;
+  font-weight: normal;
+}
+
+.icon-chevron {
+  height: 16px;
+  width: 16px;
+  display: block;
+  fill: currentcolor
+}
+
+.guest-label {
+    white-space: nowrap;
+    margin-right: 1em;
+    overflow: hidden;
+}
+
+.guest-label-text {
+    display: inline-block;
+    font-size: 17px;
+    margin: 0;
+    padding: 0;
+}
+
+.text-highlight {
+  background-color: #99ede6;
+  border-color: #99ede6;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  color: #007a87;
+  cursor: pointer;
+  padding: 0.25em 0.5em;
+}
+
+.guest-count-filter-container {
+    position: absolute;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px, rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
+    width: 100%;
+    min-width: 280px;
+    text-align: left;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    z-index: 2;
+    left: 0px;
+    background: rgb(255, 255, 255);
+    border-radius: 3px;
+    padding: 0px 16px;
+}
+
+/*
+
+*/
+
+.button-guest-select {
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  line-height: 1;
+  position: relative;
+  width: 32px;
+  height: 32px;
+  box-shadow: none;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: rgb(0, 132, 137);
+  background: transparent;
+  border-width: 1px;
+  outline: none;
+}
+
+.button-guest-select:active {
+  box-shadow: rgb(0, 132, 137) 0px 0px 2px 2px;
+}
+
+.button-guest-select:disabled {
+  cursor: default;
+  border-color: rgba(0, 132, 137, 0.3);
+  background: transparent;
+  box-shadow: none;
+}
+
+.button-guest-select-icon {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgb(0, 132, 137);
+  font-size: 16px;
+}
+
+.button-guest-select-icon.disabled {
+  color: rgba(0, 132, 137, 0.3);
+}
+
+.button-guest-select-svg {
+  height: 1em;
+  width: 1em;
+  display: block;
+  fill: currentcolor;
+}
+
+
+/*
+---------------- PRICE QUOTE FORM ----------------
+*/
+
+.price-quote-form-container {
+  margin-bottom: 8;
+}
+
+
+/* ---------------------------------------------- */
+
+/*
+---------------- BOOKING FOOTER SECTION ----------------
+*/
+
+.footer-button-spacing {
+  margin-top: 24px;
+}
+
+.booking-button {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  -webkit-transition-property: background, border-color, color;
+  -moz-transition-property: background, border-color, color;
+  transition-property: background, border-color, color;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+  border-radius: 4px;
+  width: 100%;
+  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
+  font-size: 16px;
+  line-height: 21px;
+  letter-spacing: undefined;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-weight: 800;
+  border-width: 2px;
+  border-style: solid;
+  padding-left: 24px;
+  padding-right: 24px;
+  min-width: 77.66563145999496px;
+  box-shadow: none;
+  background: #FF5A5F;
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.booking-button-text {
+    margin: 0px;
+    word-wrap: break-word;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: undefined;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.booking-charge-text-spacing {
+  margin-top: 8px;
+}
+
