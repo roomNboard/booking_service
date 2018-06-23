@@ -1,57 +1,48 @@
-const db = require('../database/index');
+// const db = require('../database/index');
 const mock = require('./generateData');
 const debug = require('debug')('app:*');
+const fs = require('fs');
+const util = require('util');
+const path = require('path');
 
-const userAccounts = mock.generateFirstName(755).map((user) => {
-  const arr = [];
-  arr.push(user);
-  return arr;
-});
-const ownerAccounts = mock.generateFirstName(100).map((owner) => {
-  const arr = [];
-  arr.push(owner);
-  return arr;
-});
-const listingInfo = mock.generateAllListingInfo(100);
-const allBookings = mock.generateAllBookings(100, 755);
-const listingReviews = mock.generateAllReviews(100, 755);
+const numberSegment = 10;
+const numberRecord = (100 * 100000) / numberSegment;
 
-db.insertIntoDB('INSERT INTO users (userName) VALUES ? ', userAccounts, (error, results) => {
-  if (error) {
-    debug(`Error log debugger: ${error}`);
-  } else {
-    debug(`Success: ${results.message}, changedRows: ${results.changedRows}`);
+const filePath = fileName => path.resolve(__dirname, '../csv/', `${fileName}.csv`);
+
+console.log(`inserting booking info for ${numberRecord * numberSegment} listings`);
+
+const writeFiles = [
+  ['userAccounts', mock.generateOneFirstName],
+  ['ownerAccounts', mock.generateOneFirstName],
+  ['allBookings', mock.generateOneBooking],
+  ['listingReviews', mock.generateOneListingReviews],
+  ['listingInfo', mock.generateOneListingInfo],
+];
+
+function* writeFile(fp, func, i) {
+  const writeStream = fs.createWriteStream(fp);
+  const self = yield;
+  let writingIndicator = true;
+  let j = (i * numberRecord) + 1;
+  while (j <= (i + 1) * numberRecord) {
+    if (writingIndicator) {
+      writingIndicator = writeStream.write(func(j));
+      j += 1;
+    } else {
+      writeStream.once('drain', () => { self.next(true); });
+      writingIndicator = yield;
+    }
   }
-});
+}
 
-db.insertIntoDB('INSERT INTO owners (ownerName) VALUES ? ', ownerAccounts, (error, results) => {
-  if (error) {
-    debug(`Error log debugger: ${error}`);
-  } else {
-    debug(`Success: ${results.message}, changedRows: ${results.changedRows}`);
+const fileFlow = (fileName, func) => {
+  for (let i = 0; i < numberSegment; i++) {
+    const fp = filePath(`${fileName}_${i}`);
+    const iterator = writeFile(fp, func, i);
+    iterator.next();
+    iterator.next(iterator);
   }
-});
+};
 
-db.insertIntoDB('INSERT INTO listings (owner_id, maxGuests, price, minStay, cleaningFee, areaTax) VALUES ?', listingInfo, (error, results) => {
-  if (error) {
-    debug(`Error log debugger: ${error}`);
-  } else {
-    debug(`Success: ${results.message}, changedRows: ${results.changedRows}`);
-  }
-});
-
-db.insertIntoDB('INSERT INTO bookings (listing_id, user_id, startDate, endDate) VALUES ?', allBookings, (error, results) => {
-  if (error) {
-    debug(`Error log debugger: ${error}`);
-  } else {
-    debug(`Success: ${results.message}, changedRows: ${results.changedRows}`);
-  }
-});
-
-db.insertIntoDB('INSERT INTO reviews (rating, listing_id) VALUES ?', listingReviews, (error, results) => {
-  if (error) {
-    debug(`Error log debugger: ${error}`);
-  } else {
-    debug(`Success: ${results.message}, changedRows: ${results.changedRows}`);
-  }
-});
+fileFlow(...writeFiles[4]);

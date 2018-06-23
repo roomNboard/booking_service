@@ -28,3 +28,6 @@ main.css
 
 # config files
 config/
+
+# csv files
+csv/
