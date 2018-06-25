@@ -126,9 +126,9 @@ const generateOneListingInfo = (listingId) => {
   const maxGuests = generateInteger(10, 1);
   return (
     `${
-      listingId
-    },${
       chance.word()
+    },${
+      listingId
     },${
       maxGuests
     },${

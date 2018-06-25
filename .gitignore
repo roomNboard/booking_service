@@ -28,6 +28,7 @@ main.css
 
 # config files
 config/
+database/postgreSQL/config.js
 
 # csv files
 csv/
