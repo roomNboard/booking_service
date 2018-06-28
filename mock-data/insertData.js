@@ -1,8 +1,6 @@
 // const db = require('../database/index');
 const mock = require('./generateData');
-const debug = require('debug')('app:*');
 const fs = require('fs');
-const util = require('util');
 const path = require('path');
 
 const numberSegment = 10;
