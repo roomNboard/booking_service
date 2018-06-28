@@ -71,7 +71,7 @@ const generateOneBooking = (listingId) => addMockBookings(listingId, START_DATE,
 const generateFirstName =  (listingStart, listingEnd, callback) => {
   const userRatio = USERS_DEFAULT / LISTINGS_DEFAULT;
   for (let i = (listingStart - 1) * userRatio + 1 ; i <= listingEnd * userRatio; i++) {
-    if (callback)  callback(`${chance.first()}\n`);
+    (callback) && callback(`${chance.first()}\n`);
   }
 };
 
@@ -91,7 +91,7 @@ const generateAllReviews =  (listingStart, listingEnd, callback) => {
   for (let i = listingStart; i <= listingEnd; i++) {
     const numOfListingReviews = generateInteger(MAX_REVIEWS_DEFAULT, 1);
     for (let j = 0; j < numOfListingReviews; j++) {
-      if (callback)  callback(createReview(i));
+      (callback) && callback(createReview(i));
     }
   }
 };
@@ -118,7 +118,7 @@ const generateAllListingInfo =  (listingStart, listingEnd, callback) => {
     const minStay = generateInteger(MAX_STAY_DEFAULT, MIN_STAY_DEFAULT);
     const cleaningFee = costModifier(5, 15, maxGuests);
     const areaTax = costModifier(5, 15, maxGuests);
-    if (callback) callback(`${owner},${listingName},${maxGuests},${price},${minStay},${cleaningFee},${areaTax}\n`);
+    (callback) && callback(`${owner},${listingName},${maxGuests},${price},${minStay},${cleaningFee},${areaTax}\n`);
   }
 };
 
@@ -153,3 +153,5 @@ module.exports = {
   generateOneListingReviews,
   generateOneListingInfo,
 };
+
+/* eslint-enable */
