@@ -1,8 +1,5 @@
 const express = require('express');
 const db = require('../../../database/index');
-const debug = require('debug')('app:*');
-
-const roomIdAdjustment = 0;
 
 const router = express.Router();
 
@@ -13,19 +10,12 @@ router.post('/', (req, res, next) => {
   });
 });
 
-router.get('/:id', (req, res, next) => {
-  let id = parseInt(req.params.id, 10);
-  id += roomIdAdjustment;
+router.get('/:id', async (req, res, next) => {
+  const listingId = parseInt(req.params.id, 10);
 
-  db.queryAllDbTablesByRoomId(id, (error, results) => {
-    if (error) {
-      debug(error[0]);
-    } else {
-      res.status(200).json({
-        results,
-      });
-    }
-  });
+  const result = await db.queryAllDbTablesByListingId(listingId);
+  res.status(200);
+  res.send(result);
 });
 
 module.exports = router;
