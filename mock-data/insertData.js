@@ -43,4 +43,4 @@ const fileFlow = (fileName, func) => {
   }
 };
 
-fileFlow(...writeFiles[4]);
+fileFlow(...writeFiles[3]);

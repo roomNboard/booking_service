@@ -1,19 +1,17 @@
 const preDb = require('./db');
-const path = require('path');
 
 const test = async () => {
   const db = await preDb;
   console.time('query test');
-  // const response1 = await db.query("SELECT * FROM listings INNER JOIN bookings ON bookings.listing_id = listings.listing_id INNER JOIN owners ON owners.owner_id = listings.owner_id INNER JOIN reviews ON reviews.listing_id = listings.listing_id WHERE listings.listing_id = 10000000;");
-  const response1_1 = db.listings.find(10000000);
-  const response1_2 = db.bookings.find({ listing_id: 10000000 }, {
+  const response1_1 = db.listings.find(9999999);
+  const response1_2 = db.bookings.find({ listing_id: 9999999 }, {
     fields: ['user_id', 'duration'],
     exprs: {
       start_date: "CONCAT(start_year,'-',start_month,'-',start_date)",
     },
     only: true,
   });
-  const response1_3 = db.reviews.find({ listing_id: 10000000 }, { fields: ['rating'] });
+  const response1_3 = db.reviews.find(9999999, { fields: ['total_rating', 'review_count'] });
   const data1 = await response1_1;
   const data2 = await response1_2;
   const data3 = await response1_3;

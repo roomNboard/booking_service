@@ -34,33 +34,16 @@ area_tax numeric(11,6) NOT NULL
 ALTER TABLE listings ADD CONSTRAINT pk_listings
 PRIMARY KEY (listing_id);
 
-CREATE TABLE owners
-(
-owner_id bigserial NOT NULL,
-owner_name varchar(50) NOT NULL
-);
-
-ALTER TABLE owners ADD CONSTRAINT pk_owners
-PRIMARY KEY (owner_id);
-
 CREATE TABLE reviews
 (
-review_id bigserial NOT NULL,
-rating smallint NOT NULL,
-listing_id bigint NOT NULL
+listing_id bigserial NOT NULL,
+total_rating numeric(11,6) NOT NULL,
+review_count integer NOT NULL
 );
 
 ALTER TABLE reviews ADD CONSTRAINT pk_reviews
-PRIMARY KEY (review_id);
+PRIMARY KEY (listing_id);
 
-CREATE TABLE users
-(
-user_id bigserial NOT NULL,
-user_name varchar(50) NOT NULL
-);
-
-ALTER TABLE users ADD CONSTRAINT pk_users
-PRIMARY KEY (user_id);
 
 --TERMINAL CMD:
---psql postgres -U [userName] -f [sqlFilePath]
+--psql booking_service -U [userName] -f [sqlFilePath]
