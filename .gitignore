@@ -29,6 +29,7 @@ main.css
 # config files
 config/
 database/postgreSQL/config.js
+newrelic.js
 
 # csv files
 csv/
