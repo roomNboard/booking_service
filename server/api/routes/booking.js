@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require('../../../database/index');
+const redisClient = require('../../../database/redis/index');
 
 const router = express.Router();
 
@@ -11,11 +12,29 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/:id', async (req, res, next) => {
-  const listingId = parseInt(req.params.id, 10);
-
-  const result = await db.queryAllDbTablesByListingId(listingId);
-  res.status(200);
-  res.send(result);
+  let result;
+  try {
+    const listingId = req.params.id;
+    if ((await redisClient.clientGet.hexists(listingId, 'listing')) === 1) {
+      result = await redisClient.clientGet.hmget(listingId, 'listing', 'bookings');
+      result = {
+        listing: JSON.parse(result[0]),
+        bookings: JSON.parse(result[1]),
+      };
+      res.status(200);
+      res.send(result);
+    } else {
+      result = await db.queryAllDbTablesByListingId(parseInt(listingId, 10));
+      res.status(200);
+      res.send(result);
+      redisClient.clientGet.hmset(listingId, {
+        listing: JSON.stringify(result.listing),
+        bookings: JSON.stringify(result.bookings),
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;

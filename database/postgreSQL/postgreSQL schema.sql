@@ -44,6 +44,13 @@ review_count integer NOT NULL
 ALTER TABLE reviews ADD CONSTRAINT pk_reviews
 PRIMARY KEY (listing_id);
 
+ALTER TABLE bookings ADD CONSTRAINT fk_bookings_listing_id
+FOREIGN KEY (listing_id) REFERENCES listings (listing_id);
+
+ALTER TABLE reviews ADD CONSTRAINT fk_reviews_listing_id
+FOREIGN KEY (listing_id) REFERENCES listings (listing_id);
+
+
 
 --TERMINAL CMD:
 --psql booking_service -U [userName] -f [sqlFilePath]

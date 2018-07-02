@@ -11,18 +11,23 @@ const queryAllDbTablesByListingId = async (listingId) => {
     },
     only: true,
   });
-  const review = db.reviews.find(listingId, { fields: ['total_rating', 'review_count'] });
-  const listing = db.listings.find(listingId);
+  const listingReview = db.query('SELECT * FROM listings INNER JOIN reviews ON listings.listing_id = reviews.listing_id WHERE listings.listing_id = $1;', [listingId]);
 
   return ({
-    review: await review,
-    listing: await listing,
+    listing: (await listingReview)[0],
     bookings: await bookings,
   });
 };
 
+const insertBookingInfo = async (booking) => {
+  const db = await preDb;
+
+  return db.bookings.insert(booking);
+};
+
 module.exports = {
   queryAllDbTablesByListingId,
+  insertBookingInfo,
 };
 
 // queryAllDbTablesByListingId(10000000).then((result) => { console.log(result); process.exit(-1); });
