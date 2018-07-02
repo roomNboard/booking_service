@@ -25,11 +25,7 @@ const createBooking = (listingId, startDate, duration) => (
   },${
     generateInteger(USERS_DEFAULT, 1)
   },${
-    startDate.getFullYear()
-  },${
-    startDate.getMonth() + 1
-  },${
-    startDate.getDate()
+    `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}`
   },${
     duration
   }\n`

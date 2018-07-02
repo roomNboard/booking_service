@@ -10,9 +10,7 @@ CREATE TABLE bookings
 booking_id bigserial NOT NULL,
 listing_id bigint NOT NULL,
 user_id bigint NOT NULL,
-start_year smallint NOT NULL,
-start_month smallint NOT NULL,
-start_date smallint NOT NULL,
+start_date date NOT NULL,
 duration smallint NOT NULL
 );
 

@@ -5,10 +5,7 @@ const queryAllDbTablesByListingId = async (listingId) => {
   const db = await preDb;
 
   const bookings = db.bookings.find({ listing_id: listingId }, {
-    fields: ['user_id', 'duration'],
-    exprs: {
-      start_date: "CONCAT(start_year,'-',start_month,'-',start_date)",
-    },
+    fields: ['user_id', 'start_date', 'duration'],
     only: true,
   });
   const listingReview = db.query('SELECT * FROM listings INNER JOIN reviews ON listings.listing_id = reviews.listing_id WHERE listings.listing_id = $1;', [listingId]);
@@ -25,9 +22,23 @@ const insertBookingInfo = async (booking) => {
   return db.bookings.insert(booking);
 };
 
+const deleteBookingInfo = async (bookingId) => {
+  const db = await preDb;
+
+  return db.bookings.destroy(bookingId);
+};
+
+const updateBookingInfo = async (bookingId, updatedBookingInfo) => {
+  const db = await preDb;
+
+  return db.bookings.update(bookingId, updatedBookingInfo);
+};
+
 module.exports = {
   queryAllDbTablesByListingId,
   insertBookingInfo,
+  deleteBookingInfo,
+  updateBookingInfo,
 };
 
 // queryAllDbTablesByListingId(10000000).then((result) => { console.log(result); process.exit(-1); });

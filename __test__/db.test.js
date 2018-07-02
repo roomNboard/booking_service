@@ -38,9 +38,7 @@ describe('Persistent Booking Server', async () => {
           booking_id: 1,
           listing_id: 1,
           user_id: 1,
-          start_year: 2018,
-          start_month: 3,
-          start_date: 2,
+          start_date: '2018-3-2',
           duration: 10,
         }),
         tx.reviews.insert({
@@ -58,7 +56,10 @@ describe('Persistent Booking Server', async () => {
   });
 
   test('Should query bookings info from the DB', async () => {
-    const response = dbHelper.queryAllDbTablesByListingId(1);
+    const response = await dbHelper.queryAllDbTablesByListingId(1);
+    response.bookings.forEach((booking) => {
+      booking.start_date = `${booking.start_date.getFullYear()}-${booking.start_date.getMonth() + 1}-${booking.start_date.getDate()}`;
+    });
     const expected = {
       listing:
         {
@@ -81,21 +82,22 @@ describe('Persistent Booking Server', async () => {
         },
       ],
     };
-    expect(await response).toEqual(expected);
+    expect(response).toEqual(expected);
   });
 
-  test('Should query bookings info from the DB', async () => {
+  test('Should insert new bookings info into the DB', async () => {
     const newBooking = {
       booking_id: 2,
       listing_id: 1,
       user_id: 1,
-      start_year: 2019,
-      start_month: 3,
-      start_date: 6,
+      start_date: '2019-3-6',
       duration: 8,
     };
     await dbHelper.insertBookingInfo(newBooking);
-    const response = dbHelper.queryAllDbTablesByListingId(1);
+    const response = await dbHelper.queryAllDbTablesByListingId(1);
+    response.bookings.forEach((booking) => {
+      booking.start_date = `${booking.start_date.getFullYear()}-${booking.start_date.getMonth() + 1}-${booking.start_date.getDate()}`;
+    });
     const expected = {
       listing:
         {
@@ -123,6 +125,63 @@ describe('Persistent Booking Server', async () => {
         },
       ],
     };
-    expect(await response).toEqual(expected);
+    expect(response).toEqual(expected);
+  });
+
+  test('Should delete bookings info from the DB', async () => {
+    await dbHelper.deleteBookingInfo(1);
+    const response = await dbHelper.queryAllDbTablesByListingId(1);
+    const expected = {
+      listing:
+        {
+          listing_id: '1',
+          listing_name: 'hello',
+          owner_id: '1',
+          max_guests: 5,
+          price: '256.000000',
+          min_stay: 3,
+          cleaning_fee: '4.000000',
+          area_tax: '3.000000',
+          total_rating: '3.000000',
+          review_count: 120,
+        },
+      bookings: [],
+    };
+    expect(response).toEqual(expected);
+  });
+
+  test('Should update bookings info in the DB', async () => {
+    const newBooking = {
+      start_date: '2019-3-6',
+      duration: 7,
+    };
+    await dbHelper.updateBookingInfo(1, newBooking);
+    const response = await dbHelper.queryAllDbTablesByListingId(1);
+    response.bookings.forEach((booking) => {
+      booking.start_date = `${booking.start_date.getFullYear()}-${booking.start_date.getMonth() + 1}-${booking.start_date.getDate()}`;
+    });
+    const expected = {
+      listing:
+        {
+          listing_id: '1',
+          listing_name: 'hello',
+          owner_id: '1',
+          max_guests: 5,
+          price: '256.000000',
+          min_stay: 3,
+          cleaning_fee: '4.000000',
+          area_tax: '3.000000',
+          total_rating: '3.000000',
+          review_count: 120,
+        },
+      bookings: [
+        {
+          user_id: '1',
+          duration: 7,
+          start_date: '2019-3-6',
+        },
+      ],
+    };
+    expect(response).toEqual(expected);
   });
 });
