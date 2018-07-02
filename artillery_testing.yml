@@ -19,8 +19,17 @@ config:
     headers:
       x-my-service-auth: '987401838271002188298567'
 scenarios:
-    - flow:
+  - name: '80'
+    weight: 4
+    flow: 
         - loop:
             - get:
-                url: "/booking/{{$randomNumber(9000000, 10000000)}}"
+                url: "/booking/{{$randomNumber(8000000, 10000000)}}"
+          count: 100
+  - name: '20'
+    weight: 1
+    flow: 
+        - loop:
+            - get:
+                url: "/booking/{{$randomNumber(1, 8000000)}}"
           count: 100
