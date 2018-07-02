@@ -7,8 +7,7 @@ const getDb = async () => {
   if (db) {
     return db;
   }
-
-  db = await massive(config);
+  db = await massive(config[process.env.NODE_ENV]);
   return db;
 };
 
