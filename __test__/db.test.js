@@ -1,14 +1,13 @@
 // using massiveJs as postgreSQL driver
 const path = require('path');
 // require('dotenv').config({ path: path.resolve(__dirname, '../env/test.env') });
-// const request = require('request');
 const preDb = require('../database/postgreSQL/db');
 const dbHelper = require('../database/index');
 const util = require('util');
 
 // const requestAsync = util.promisify(request);
 
-describe('Persistent Booking Server', async () => {
+describe('Persistent Booking Server', () => {
   let db;
 
   beforeAll(async () => {
@@ -56,7 +55,10 @@ describe('Persistent Booking Server', async () => {
   });
 
   test('Should query bookings info from the DB', async () => {
-    const response = await dbHelper.queryAllDbTablesByListingId(1);
+    expect(dbHelper.queryAllDbTablesByListingId).toBeInstanceOf(Function);
+    let response = dbHelper.queryAllDbTablesByListingId(1);
+    expect(response).toBeInstanceOf(Promise);
+    response = await response;
     response.bookings.forEach((booking) => {
       booking.start_date = `${booking.start_date.getFullYear()}-${booking.start_date.getMonth() + 1}-${booking.start_date.getDate()}`;
     });
@@ -86,6 +88,7 @@ describe('Persistent Booking Server', async () => {
   });
 
   test('Should insert new bookings info into the DB', async () => {
+    expect(dbHelper.insertBookingInfo).toBeInstanceOf(Function);
     const newBooking = {
       booking_id: 2,
       listing_id: 1,
@@ -93,7 +96,9 @@ describe('Persistent Booking Server', async () => {
       start_date: '2019-3-6',
       duration: 8,
     };
-    await dbHelper.insertBookingInfo(newBooking);
+    const action = dbHelper.insertBookingInfo(newBooking);
+    expect(action).toBeInstanceOf(Promise);
+    await action;
     const response = await dbHelper.queryAllDbTablesByListingId(1);
     response.bookings.forEach((booking) => {
       booking.start_date = `${booking.start_date.getFullYear()}-${booking.start_date.getMonth() + 1}-${booking.start_date.getDate()}`;
@@ -129,7 +134,10 @@ describe('Persistent Booking Server', async () => {
   });
 
   test('Should delete bookings info from the DB', async () => {
-    await dbHelper.deleteBookingInfo(1);
+    expect(dbHelper.deleteBookingInfo).toBeInstanceOf(Function);
+    const action = dbHelper.deleteBookingInfo(1);
+    expect(action).toBeInstanceOf(Promise);
+    await action;
     const response = await dbHelper.queryAllDbTablesByListingId(1);
     const expected = {
       listing:
@@ -151,11 +159,14 @@ describe('Persistent Booking Server', async () => {
   });
 
   test('Should update bookings info in the DB', async () => {
+    expect(dbHelper.updateBookingInfo).toBeInstanceOf(Function);
     const newBooking = {
       start_date: '2019-3-6',
       duration: 7,
     };
-    await dbHelper.updateBookingInfo(1, newBooking);
+    const action = dbHelper.updateBookingInfo(1, newBooking);
+    expect(action).toBeInstanceOf(Promise);
+    await action;
     const response = await dbHelper.queryAllDbTablesByListingId(1);
     response.bookings.forEach((booking) => {
       booking.start_date = `${booking.start_date.getFullYear()}-${booking.start_date.getMonth() + 1}-${booking.start_date.getDate()}`;

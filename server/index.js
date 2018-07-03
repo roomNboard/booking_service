@@ -1,4 +1,4 @@
-require('newrelic');
+if (!module.parent) { require('newrelic'); };
 const path = require('path');
 const express = require('express');
 const debug = require('debug')('app:*');
@@ -30,6 +30,16 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/:id', (req, res, next) => {
+  if (isNaN(req.params.id)) {
+    const err = new Error();
+    err.status = 404;
+    next(err);
+  } else {
+    next();
+  }
+});
+
 app.use('/:id', express.static(path.join(__dirname, '../public/dist')));
 
 app.use('/booking', bookingRoutes);
@@ -49,6 +59,10 @@ app.use((error, req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 3002;
-const server = http.createServer(app);
-server.listen(PORT, () => debug(`listening on port ${PORT}...`));
+module.exports = app;
+
+if (!module.parent) {
+  const PORT = process.env.PORT || 3002;
+  const server = http.createServer(app);
+  server.listen(PORT, () => debug(`listening on port ${PORT}...`));
+}

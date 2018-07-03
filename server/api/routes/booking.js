@@ -22,11 +22,19 @@ router.get('/:id', async (req, res, next) => {
         bookings: JSON.parse(result[1]),
       };
       res.status(200);
-      res.send(result);
+      res.json(result);
     } else {
       result = await db.queryAllDbTablesByListingId(parseInt(listingId, 10));
+      if (!result.listing) {
+        const err = new Error();
+        err.status = 404;
+        throw err;
+      }
+      result.bookings.forEach((booking) => {
+        booking.start_date = `${booking.start_date.getFullYear()}-${booking.start_date.getMonth() + 1}-${booking.start_date.getDate()}`;
+      });
       res.status(200);
-      res.send(result);
+      res.json(result);
       redisClient.clientGet.hmset(listingId, {
         listing: JSON.stringify(result.listing),
         bookings: JSON.stringify(result.bookings),

@@ -7,7 +7,7 @@
     "dev": "webpack -d --watch",
     "start-dev": "nodemon -r dotenv/config server/index.js dotenv_config_path=env/development.env",
     "start": "node server/index.js",
-    "test": "jest --forceExit"
+    "test": "jest --verbose --coverage --forceExit"
   },
   "repository": {
     "type": "git",
@@ -44,6 +44,7 @@
     "mini-css-extract-plugin": "^0.4.0",
     "nodemon": "^1.17.5",
     "request": "^2.87.0",
+    "supertest": "^3.1.0",
     "webpack": "^4.10.2",
     "webpack-cli": "^2.1.5"
   },
@@ -67,5 +68,13 @@
     "react-dom": "^16.4.0",
     "react-with-styles": "^3.2.0",
     "redis": "^2.8.0"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "server/**/*.{js, jsx}",
+      "database/postgreSQL/db.js",
+      "database/redis/index.js",
+      "database/index.js"
+    ]
   }
 }
