@@ -1,17 +1,21 @@
+require('newrelic');
+const path = require('path');
 const express = require('express');
 const debug = require('debug')('app:*');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const http = require('http');
-const path = require('path');
+
 const bodyParser = require('body-parser');
 
-const roomRoutes = require('./api/routes/booking');
+// const redisClient = require('../database/redis/index');
+const bookingRoutes = require('./api/routes/booking');
+
 
 const app = express();
 
-if (app.get('env') === 'development') {
-  app.use(morgan('dev'));
-}
+// if (app.get('env') === 'development') {
+//   app.use(morgan('dev'));
+// }
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,7 +32,7 @@ app.use((req, res, next) => {
 
 app.use('/:id', express.static(path.join(__dirname, '../public/dist')));
 
-app.use('/booking', roomRoutes);
+app.use('/booking', bookingRoutes);
 
 app.use((req, res, next) => {
   const error = new Error('Not found');

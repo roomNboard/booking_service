@@ -10,9 +10,7 @@ CREATE TABLE bookings
 booking_id bigserial NOT NULL,
 listing_id bigint NOT NULL,
 user_id bigint NOT NULL,
-start_year smallint NOT NULL,
-start_month smallint NOT NULL,
-start_date smallint NOT NULL,
+start_date date NOT NULL,
 duration smallint NOT NULL
 );
 
@@ -34,33 +32,23 @@ area_tax numeric(11,6) NOT NULL
 ALTER TABLE listings ADD CONSTRAINT pk_listings
 PRIMARY KEY (listing_id);
 
-CREATE TABLE owners
-(
-owner_id bigserial NOT NULL,
-owner_name varchar(50) NOT NULL
-);
-
-ALTER TABLE owners ADD CONSTRAINT pk_owners
-PRIMARY KEY (owner_id);
-
 CREATE TABLE reviews
 (
-review_id bigserial NOT NULL,
-rating smallint NOT NULL,
-listing_id bigint NOT NULL
+listing_id bigserial NOT NULL,
+total_rating numeric(11,6) NOT NULL,
+review_count integer NOT NULL
 );
 
 ALTER TABLE reviews ADD CONSTRAINT pk_reviews
-PRIMARY KEY (review_id);
+PRIMARY KEY (listing_id);
 
-CREATE TABLE users
-(
-user_id bigserial NOT NULL,
-user_name varchar(50) NOT NULL
-);
+ALTER TABLE bookings ADD CONSTRAINT fk_bookings_listing_id
+FOREIGN KEY (listing_id) REFERENCES listings (listing_id);
 
-ALTER TABLE users ADD CONSTRAINT pk_users
-PRIMARY KEY (user_id);
+ALTER TABLE reviews ADD CONSTRAINT fk_reviews_listing_id
+FOREIGN KEY (listing_id) REFERENCES listings (listing_id);
+
+
 
 --TERMINAL CMD:
---psql postgres -U [userName] -f [sqlFilePath]
+--psql booking_service -U [userName] -f [sqlFilePath]

@@ -13,45 +13,30 @@ const path = require('path');
 // ];
 
 // table bookings
-// let columns = [
-//   'listing_id',
-//   'user_id',
-//   'start_year',
-//   'start_month',
-//   'start_date',
-//   'duration',
-// ];
-
-// table owners
-// let columns = [
-//   'owner_name',
-// ];
+let columns = [
+  'listing_id',
+  'user_id',
+  'start_date',
+  'duration',
+];
 
 // table reviews
 // let columns = [
-//   'rating',
-//   'listing_id',
+//   'total_rating',
+//   'review_count',
 // ];
 
-// table users
-let columns = [
-  'user_name',
-];
 
 // table bookings
-// const createTable =
-//   `CREATE TABLE bookings
-//   (
-//   booking_id bigserial NOT NULL,
-//   listing_id bigint NOT NULL,
-//   user_id bigint NOT NULL,
-//   start_year smallint NOT NULL,
-//   start_month smallint NOT NULL,
-//   start_date smallint NOT NULL,
-//   duration smallint NOT NULL
-//   );
-//   ALTER TABLE bookings ADD CONSTRAINT pk_bookings
-//   PRIMARY KEY (booking_id);`;
+const createTable =
+  `CREATE TABLE bookings
+  (
+  booking_id bigserial NOT NULL,
+  listing_id bigint NOT NULL,
+  user_id bigint NOT NULL,
+  start_date date NOT NULL,
+  duration smallint NOT NULL
+  );`;
 
 // table listings;
 // const createTable =
@@ -70,53 +55,32 @@ let columns = [
 //   ALTER TABLE listings ADD CONSTRAINT pk_listings
 //   PRIMARY KEY (listing_id);`;
 
-// table owners
-// const createTable =
-//   `CREATE TABLE owners
-//   (
-//   owner_id bigserial NOT NULL,
-//   owner_name varchar(50) NOT NULL
-//   );
-
-//   ALTER TABLE owners ADD CONSTRAINT pk_owners
-//   PRIMARY KEY (owner_id);`;
-
 // table reviews
 // const createTable =
 //   `CREATE TABLE reviews
 //   (
-//   review_id bigserial NOT NULL,
-//   rating smallint NOT NULL,
-//   listing_id bigint NOT NULL
+//   listing_id bigserial NOT NULL,
+//   total_rating numeric(11,6) NOT NULL,
+//   review_count integer NOT NULL
 //   );
-
+  
 //   ALTER TABLE reviews ADD CONSTRAINT pk_reviews
-//   PRIMARY KEY (review_id);`;
+//   PRIMARY KEY (listing_id);`;
 
-// table users
-// const createTable =
-//   `CREATE TABLE users
-//   (
-//   user_id bigserial NOT NULL,
-//   user_name varchar(50) NOT NULL
-//   );
 
-//   ALTER TABLE users ADD CONSTRAINT pk_users
-//   PRIMARY KEY (user_id);`;
-
-const tableName = 'users';
+const tableName = 'bookings';
 const csvFolderPath = path.resolve(__dirname, '../../csv/');
 // const testingFilePath = path.resolve(csvFolderPath, 'testing.csv');
-const fileName = 'userAccounts';
+const fileName = 'allBookings';
 const numberFiles = 10;
 // const filePaths = [testingFilePath, testingFilePath];
 const filePaths = Array(numberFiles).fill().map((_, i) => path.resolve(csvFolderPath, `${fileName}_${i}.csv`));
 // console.log(filePaths);
-// const sqls = [createTable];
-// filePaths.forEach((filePath) => {
-//   sqls.push(`COPY ${tableName} (${columns.join(',')}) FROM '${filePath}' WITH DELIMITER ','`);
-// });
+const sqls = [createTable];
+filePaths.forEach((filePath) => {
+  sqls.push(`COPY ${tableName} (${columns.join(',')}) FROM '${filePath}' WITH DELIMITER ','`);
+});
 
-// db.query(sqls).then(() => { process.exit(-1); });
-const sqls = ["select * from users where user_name = 'Jimmy'"];
-db.query(sqls).then((data) => { console.log(data[0][data[0].length - 1]); console.log(data[0].length); }).then(() => { process.exit(-1); });
+db.query(sqls).then(() => { process.exit(-1); });
+// const sqls = ["select * from users where user_name = 'Jimmy'"];
+// db.query(sqls).then((data) => { console.log(data[0][data[0].length - 1]); console.log(data[0].length); }).then(() => { process.exit(-1); });

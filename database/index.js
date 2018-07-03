@@ -1,107 +1,44 @@
-const mysql = require('mysql');
-const debug = require('debug')('app:*');
+const preDb = require('./postgreSQL/db');
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  database: 'booking_service',
-});
 
-connection.connect((error) => {
-  if (error) {
-    debug(`Error connecting to db, error code: ${error.code}`);
-    return;
-  }
-  debug('connected to database...');
-});
+const queryAllDbTablesByListingId = async (listingId) => {
+  const db = await preDb;
 
-const insertIntoDB = (sql, values, callback) => {
-  const bulkArr = [];
-  bulkArr.push(values);
-  connection.query(sql, bulkArr, (error, results, fields) => {
-    if (error) {
-      callback(error, null);
-    } else {
-      callback(null, results);
-    }
+  const bookings = db.bookings.find({ listing_id: listingId }, {
+    fields: ['user_id', 'start_date', 'duration'],
+    only: true,
+  });
+  const listingReview = db.query('SELECT * FROM listings INNER JOIN reviews ON listings.listing_id = reviews.listing_id WHERE listings.listing_id = $1;', [listingId]);
+
+  return ({
+    listing: (await listingReview)[0],
+    bookings: await bookings,
   });
 };
 
-const queryListingInfoByRoomId = (id, name = 'listing', callback) => {
-  connection.query('SELECT * FROM listings WHERE id = ?', id, (err, rows) => {
-    if (err) {
-      callback(err, null, name);
-    } else {
-      callback(null, rows, name);
-    }
-  });
+const insertBookingInfo = async (booking) => {
+  const db = await preDb;
+
+  return db.bookings.insert(booking);
 };
 
-const queryOwnerInfoByRoomId = (id, name = 'owner', callback) => {
-  connection.query('SELECT * FROM owners WHERE id = ?', id, (err, rows) => {
-    if (err) {
-      callback(err, null, name);
-    } else {
-      callback(null, rows, name);
-    }
-  });
+const deleteBookingInfo = async (bookingId) => {
+  const db = await preDb;
+
+  return db.bookings.destroy(bookingId);
 };
 
-const queryListingReviewsByRoomId = (id, name = 'reviews', callback) => {
-  connection.query('SELECT COUNT(*) as totalReviews, SUM(rating) as starSum FROM reviews WHERE listing_id = ?', id, (err, rows) => {
-    if (err) {
-      callback(err, null, name);
-    } else {
-      callback(null, rows, name);
-    }
-  });
-};
+const updateBookingInfo = async (bookingId, updatedBookingInfo) => {
+  const db = await preDb;
 
-const queryBookingsByRoomId = (id, name = 'bookings', callback) => {
-  connection.query('SELECT * FROM bookings WHERE listing_id = ?', id, (err, rows) => {
-    if (err) {
-      callback(err, null, name);
-    } else {
-      callback(null, rows, name);
-    }
-  });
-};
-
-const queryAllDbTablesByRoomId = (id, callback) => {
-  const READ_DB_OPERATIONS = 4;
-  const roomRecords = {};
-  const errorLog = [];
-  const idWrap = [];
-  let queriesComplete = 0;
-  idWrap.push(id);
-
-  const trackQueryHelper = (error, data, name) => {
-    queriesComplete += 1;
-    if (error) {
-      debug(`error reading from database, step: ${queriesComplete}, error: ${error}`);
-      errorLog.push({ name, error });
-    } else {
-      roomRecords[name] = data;
-    }
-
-    if (queriesComplete === READ_DB_OPERATIONS) {
-      if (errorLog.length === READ_DB_OPERATIONS) {
-        callback(errorLog, null);
-      } else {
-        roomRecords.errors = errorLog;
-        callback(null, roomRecords);
-      }
-    }
-  };
-
-  queryListingInfoByRoomId(idWrap, 'listing', trackQueryHelper);
-  queryOwnerInfoByRoomId(idWrap, 'owner', trackQueryHelper);
-  queryListingReviewsByRoomId(idWrap, 'reviews', trackQueryHelper);
-  queryBookingsByRoomId(idWrap, 'bookings', trackQueryHelper);
+  return db.bookings.update(bookingId, updatedBookingInfo);
 };
 
 module.exports = {
-  connection,
-  insertIntoDB,
-  queryAllDbTablesByRoomId,
+  queryAllDbTablesByListingId,
+  insertBookingInfo,
+  deleteBookingInfo,
+  updateBookingInfo,
 };
+
+// queryAllDbTablesByListingId(10000000).then((result) => { console.log(result); process.exit(-1); });

@@ -1,8 +1,6 @@
 const express = require('express');
 const db = require('../../../database/index');
-const debug = require('debug')('app:*');
-
-const roomIdAdjustment = 0;
+const redisClient = require('../../../database/redis/index');
 
 const router = express.Router();
 
@@ -13,19 +11,30 @@ router.post('/', (req, res, next) => {
   });
 });
 
-router.get('/:id', (req, res, next) => {
-  let id = parseInt(req.params.id, 10);
-  id += roomIdAdjustment;
-
-  db.queryAllDbTablesByRoomId(id, (error, results) => {
-    if (error) {
-      debug(error[0]);
+router.get('/:id', async (req, res, next) => {
+  let result;
+  try {
+    const listingId = req.params.id;
+    if ((await redisClient.clientGet.hexists(listingId, 'listing')) === 1) {
+      result = await redisClient.clientGet.hmget(listingId, 'listing', 'bookings');
+      result = {
+        listing: JSON.parse(result[0]),
+        bookings: JSON.parse(result[1]),
+      };
+      res.status(200);
+      res.send(result);
     } else {
-      res.status(200).json({
-        results,
+      result = await db.queryAllDbTablesByListingId(parseInt(listingId, 10));
+      res.status(200);
+      res.send(result);
+      redisClient.clientGet.hmset(listingId, {
+        listing: JSON.stringify(result.listing),
+        bookings: JSON.stringify(result.bookings),
       });
     }
-  });
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;

@@ -17,17 +17,15 @@ const addDays = (date, days) => new Date(date.getTime() + days * 86400000);
 
 const generateInteger = (max = 1, min = 0) => Math.floor(Math.random() * ((max + 1) - min)) + min;
 
+const generateNumber = (max = 1, min = 0) => Math.random() * (max - min) + min;
+
 const createBooking = (listingId, startDate, duration) => (
   `${
     listingId
   },${
     generateInteger(USERS_DEFAULT, 1)
   },${
-    startDate.getFullYear()
-  },${
-    startDate.getMonth() + 1
-  },${
-    startDate.getDate()
+    `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}`
   },${
     duration
   }\n`
@@ -60,67 +58,26 @@ const addMockBookings = (listingId, startDate, dateRange) => {
   return array.join('');
 };
 
-const generateAllBookings =  (listingStart, listingEnd, callback) => {
-  for (let i = listingStart; i <= listingEnd; i += 1) {
-    addMockBookings(i, new Date(), 90, callback);
-  }
-};
-
 const generateOneBooking = (listingId) => addMockBookings(listingId, START_DATE, 90);
-
-const generateFirstName =  (listingStart, listingEnd, callback) => {
-  const userRatio = USERS_DEFAULT / LISTINGS_DEFAULT;
-  for (let i = (listingStart - 1) * userRatio + 1 ; i <= listingEnd * userRatio; i++) {
-    (callback) && callback(`${chance.first()}\n`);
-  }
-};
 
 const generateOneFirstName = () => {
     return `${chance.first()}\n`;
 }
 
-const createReview = (listingID) => (
-  `${
-    generateInteger(5, 2)
+const generateOneListingReviews = (listingID) => {
+  const totalCount = generateInteger(200, 1);
+  return (`${
+    totalCount * generateNumber(5, 3)
   },${
-    listingID
-  }\n`
-);
-
-const generateAllReviews =  (listingStart, listingEnd, callback) => {
-  for (let i = listingStart; i <= listingEnd; i++) {
-    const numOfListingReviews = generateInteger(MAX_REVIEWS_DEFAULT, 1);
-    for (let j = 0; j < numOfListingReviews; j++) {
-      (callback) && callback(createReview(i));
-    }
-  }
+    totalCount
+  }\n`);
 };
 
-const generateOneListingReviews = (listingId) => {
-  const array = [];
-  for (let i = 0; i < generateInteger(MAX_REVIEWS_DEFAULT, 1); i++) {
-    array.push(createReview(listingId));
-  }
-  return array.join('');
-}
 
 const costModifier = (min, max, guests) => generateInteger(
   Math.floor(min * (1 + (guests * 0.25))),
   Math.floor(max * (1 + (guests * 0.25)))
 );
-
-const generateAllListingInfo =  (listingStart, listingEnd, callback) => {
-  for (let i = listingStart; i <= listingEnd; i++) {
-    const owner = i;
-    const listingName = chance.word();
-    const maxGuests = generateInteger(10, 1);
-    const price = costModifier(35, 150, maxGuests);
-    const minStay = generateInteger(MAX_STAY_DEFAULT, MIN_STAY_DEFAULT);
-    const cleaningFee = costModifier(5, 15, maxGuests);
-    const areaTax = costModifier(5, 15, maxGuests);
-    (callback) && callback(`${owner},${listingName},${maxGuests},${price},${minStay},${cleaningFee},${areaTax}\n`);
-  }
-};
 
 const generateOneListingInfo = (listingId) => {
   const maxGuests = generateInteger(10, 1);
@@ -144,10 +101,6 @@ const generateOneListingInfo = (listingId) => {
 }
 
 module.exports = {
-  generateAllBookings,
-  generateFirstName,
-  generateAllReviews,
-  generateAllListingInfo,
   generateOneBooking,
   generateOneFirstName,
   generateOneListingReviews,

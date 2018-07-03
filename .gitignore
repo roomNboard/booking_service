@@ -29,6 +29,8 @@ main.css
 # config files
 config/
 database/postgreSQL/config.js
+newrelic.js
+env/
 
 # csv files
 csv/
