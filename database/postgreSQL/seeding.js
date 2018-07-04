@@ -34,7 +34,7 @@ const createTable =
   booking_id bigserial NOT NULL,
   listing_id bigint NOT NULL,
   user_id bigint NOT NULL,
-  start_date date NOT NULL,
+  start_date varchar(10) NOT NULL,
   duration smallint NOT NULL
   );`;
 

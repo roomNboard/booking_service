@@ -59,9 +59,6 @@ describe('Persistent Booking Server', () => {
     let response = dbHelper.queryAllDbTablesByListingId(1);
     expect(response).toBeInstanceOf(Promise);
     response = await response;
-    response.bookings.forEach((booking) => {
-      booking.start_date = `${booking.start_date.getFullYear()}-${booking.start_date.getMonth() + 1}-${booking.start_date.getDate()}`;
-    });
     const expected = {
       listing:
         {
@@ -100,9 +97,6 @@ describe('Persistent Booking Server', () => {
     expect(action).toBeInstanceOf(Promise);
     await action;
     const response = await dbHelper.queryAllDbTablesByListingId(1);
-    response.bookings.forEach((booking) => {
-      booking.start_date = `${booking.start_date.getFullYear()}-${booking.start_date.getMonth() + 1}-${booking.start_date.getDate()}`;
-    });
     const expected = {
       listing:
         {
@@ -168,9 +162,6 @@ describe('Persistent Booking Server', () => {
     expect(action).toBeInstanceOf(Promise);
     await action;
     const response = await dbHelper.queryAllDbTablesByListingId(1);
-    response.bookings.forEach((booking) => {
-      booking.start_date = `${booking.start_date.getFullYear()}-${booking.start_date.getMonth() + 1}-${booking.start_date.getDate()}`;
-    });
     const expected = {
       listing:
         {

@@ -74,7 +74,8 @@
       "server/**/*.{js, jsx}",
       "database/postgreSQL/db.js",
       "database/redis/index.js",
-      "database/index.js"
+      "database/index.js",
+      "!server/api/routes/original booking.js"
     ]
   }
 }

@@ -4,11 +4,59 @@ const redisClient = require('../../../database/redis/index');
 
 const router = express.Router();
 
-router.post('/', (req, res, next) => {
-  res.status(201).json({
-    message: 'post request with the following data recieved by server',
-    data: req.body,
+const addDays = (date, days) => new Date(date.getTime() + (days * 86400000));
+
+const validateBooking = (bookings, newBooking) => {
+  const newStartDate = new Date(`${newBooking.start_date}z`);
+  return bookings.every((booking) => {
+    const bookingStartDate = new Date(`${booking.start_date}z`);
+    if (bookingStartDate < newStartDate) {
+      return (addDays(bookingStartDate, booking.duration - 1) < newStartDate);
+    }
+    if (bookingStartDate > newStartDate) {
+      return (addDays(newStartDate, newBooking.duration - 1) < bookingStartDate);
+    }
+    return false;
   });
+};
+
+router.post('/:id', async (req, res, next) => {
+  try {
+    const listingId = req.params.id;
+    const booking = {
+      listing_id: parseInt(listingId, 10),
+      user_id: req.body.user_id,
+      start_date: req.body.start_date,
+      duration: req.body.duration,
+    };
+    if ((await redisClient.clientGet.hexists(listingId, 'listingId')) === 1) {
+      let bookings = redisClient.clientGet.hget(listingId, 'bookings');
+      bookings = JSON.parse(await bookings);
+      if (validateBooking(bookings, booking)) {
+        await db.insertBookingInfo(booking);
+        res.sendStatus(201);
+        redisClient.clientGet.hdel(listingId, 'listing', 'bookings');
+      } else {
+        res.sendStatus(403);
+      }
+    } else {
+      const result = await db.queryAllDbTablesByListingId(listingId);
+      if (!result.listing) {
+        const err = new Error('listingId not found');
+        err.status = 404;
+        throw err;
+      }
+      const { bookings } = result;
+      if (validateBooking(bookings, booking)) {
+        await db.insertBookingInfo(booking);
+        res.sendStatus(201);
+      } else {
+        res.sendStatus(403);
+      }
+    }
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.get('/:id', async (req, res, next) => {
@@ -30,9 +78,6 @@ router.get('/:id', async (req, res, next) => {
         err.status = 404;
         throw err;
       }
-      result.bookings.forEach((booking) => {
-        booking.start_date = `${booking.start_date.getFullYear()}-${booking.start_date.getMonth() + 1}-${booking.start_date.getDate()}`;
-      });
       res.status(200);
       res.json(result);
       redisClient.clientGet.hmset(listingId, {
