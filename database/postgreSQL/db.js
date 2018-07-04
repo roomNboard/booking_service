@@ -8,7 +8,6 @@ const config = {
   password: process.env.pgPassword,
 };
 
-console.log(config);
 let db;
 
 const getDb = async () => {
