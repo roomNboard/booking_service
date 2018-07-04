@@ -51,6 +51,7 @@ describe('Persistent Booking Server', () => {
       await tx.query('ALTER TABLE reviews ADD CONSTRAINT pk_reviews PRIMARY KEY (listing_id);');
       await tx.query('ALTER TABLE bookings ADD CONSTRAINT fk_bookings_listing_id FOREIGN KEY (listing_id) REFERENCES listings (listing_id);');
       await tx.query('ALTER TABLE reviews ADD CONSTRAINT fk_reviews_listing_id FOREIGN KEY (listing_id) REFERENCES listings (listing_id);');
+      await tx.query("SELECT setval('bookings_booking_id_seq', (SELECT MAX(booking_id) FROM bookings)+1);");
     });
   });
 

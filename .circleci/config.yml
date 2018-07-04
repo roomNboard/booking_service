@@ -11,7 +11,7 @@ jobs:
       - image: circleci/node:10-browsers
         environment:
           - NODE_ENV=test
-          - pgUSER=root
+          - pgUser=root
           - pgHost=localhost
           - pgPort=5432
           - pgDatabase=test
@@ -41,11 +41,14 @@ jobs:
           command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
           environment:
             DOCKERIZE_VERSION: v0.6.1
-      
+
+      - run: sudo apt-get install postgresql-client
       - run: sudo apt-get install redis-tools
       - run: npm install
-      - run: mysql -u root < database/schema.sql
-      - run: node database/insertMockData.js
+      - run: |
+          psql \
+          -d test -h localhost -p 5432 -U root \
+          -f "database/postgreSQL/postgreSQL schema.sql"
       
 
       - save_cache:

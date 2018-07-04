@@ -1,14 +1,11 @@
 const massive = require('massive');
 
 const config = {
-  development: require('./config'),
-  test: {
-    host: process.env.pgHost,
-    port: process.env.pgPort,
-    database: process.env.pgDatabase,
-    user: process.env.pgUser,
-    password: process.env.pgPassword,
-  },
+  host: process.env.pgHost,
+  port: process.env.pgPort,
+  database: process.env.pgDatabase,
+  user: process.env.pgUser,
+  password: process.env.pgPassword,
 };
 
 let db;
@@ -17,7 +14,7 @@ const getDb = async () => {
   if (db) {
     return db;
   }
-  db = await massive(config[process.env.NODE_ENV]);
+  db = await massive(config);
   return db;
 };
 
