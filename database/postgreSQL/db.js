@@ -1,6 +1,5 @@
 const massive = require('massive');
 
-if ()
 const config = {
   host: process.env.pgHost,
   port: process.env.pgPort,
