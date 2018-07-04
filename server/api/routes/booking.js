@@ -49,8 +49,8 @@ router.post('/:id', async (req, res, next) => {
       }
       const { bookings } = result;
       if (validateBooking(bookings, booking)) {
-        console.log(await preDb().quey(`SELECT MAX(the_primary_key) FROM the_table;`));
-        console.log(await preDb().query(`SELECT nextval('the_primary_key_sequence');`));
+        console.log(await preDb.quey(`SELECT MAX(the_primary_key) FROM the_table;`));
+        console.log(await preDb.query(`SELECT nextval('the_primary_key_sequence');`));
         await db.insertBookingInfo(booking);
         res.sendStatus(201);
       } else {
