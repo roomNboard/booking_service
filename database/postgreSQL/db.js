@@ -1,14 +1,12 @@
 const massive = require('massive');
 
+if ()
 const config = {
-  development: require('./config'),
-  test: {
-    host: process.env.pgHost,
-    port: process.env.pgPort,
-    database: process.env.pgDatabase,
-    user: process.env.pgUser,
-    password: process.env.pgPassword,
-  },
+  host: process.env.pgHost,
+  port: process.env.pgPort,
+  database: process.env.pgDatabase,
+  user: process.env.pgUser,
+  password: process.env.pgPassword,
 };
 
 let db;
