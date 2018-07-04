@@ -44,7 +44,10 @@ jobs:
       
       - run: sudo apt-get install redis-tools
       - run: npm install
-      - run: mysql -u root < database/schema.sql
+      - run: |
+          psql \
+          -d test -h localhost -p 5432 \
+          -f database/postgreSQL/postgreSQL schema.sql
       - run: node database/insertMockData.js
       
 
