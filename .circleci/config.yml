@@ -49,7 +49,6 @@ jobs:
           psql \
           -d test -h localhost -p 5432 -U root \
           -f "database/postgreSQL/postgreSQL schema.sql"
-      - run: node database/insertMockData.js
       
 
       - save_cache:
