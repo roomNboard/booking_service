@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('../../../database/index');
 const redisClient = require('../../../database/redis/index');
+const preDb = require('../../../database/postgreSQL/db');
 
 const router = express.Router();
 
@@ -48,6 +49,8 @@ router.post('/:id', async (req, res, next) => {
       }
       const { bookings } = result;
       if (validateBooking(bookings, booking)) {
+        console.log(await preDb().quey(`SELECT MAX(the_primary_key) FROM the_table;`));
+        console.log(await preDb().query(`SELECT nextval('the_primary_key_sequence');`));
         await db.insertBookingInfo(booking);
         res.sendStatus(201);
       } else {
