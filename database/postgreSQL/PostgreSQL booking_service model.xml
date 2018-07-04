@@ -8,11 +8,7 @@
 </column>
 <column autoIncrement="false" dataType="3" id="25" length="0" name="user_id" notNull="true" precision="0" scale="0">
 </column>
-<column autoIncrement="false" dataType="1" id="26" length="0" name="start_year" notNull="true" precision="0" scale="0">
-</column>
-<column autoIncrement="false" dataType="1" id="27" length="0" name="start_month" notNull="true" precision="0" scale="0">
-</column>
-<column autoIncrement="false" dataType="1" id="28" length="0" name="start_date" notNull="true" precision="0" scale="0">
+<column autoIncrement="false" dataType="12" id="26" length="10" name="start_date" notNull="true" precision="0" scale="0">
 </column>
 <column autoIncrement="false" dataType="1" id="29" length="0" name="duration" notNull="true" precision="0" scale="0">
 </column>
@@ -82,7 +78,7 @@
 </style>
 </tableBox>
 </diagram>
-<history actualStepIndex="120" lastId="122">
+<history actualStepIndex="124" lastId="128">
 <modelStep actual="false" id="1" label="New model booking_service" objectId="1" operation="new">
 <difference>
 <oldState>
@@ -2351,7 +2347,7 @@
 </newState>
 </difference>
 </foreignKeyStep>
-<columnStep actual="true" columnId="41" id="122" label="Modify column total_rating of reviews" objectId="37" operation="modify">
+<columnStep actual="false" columnId="41" id="122" label="Modify column total_rating of reviews" objectId="37" operation="modify">
 <difference>
 <oldState>
 <object className="Object">
@@ -2365,6 +2361,112 @@
 <object className="int" name="dataType"><![CDATA[5]]></object>
 <object className="int" name="precision"><![CDATA[11]]></object>
 <object className="int" name="scale"><![CDATA[6]]></object>
+</object>
+</newState>
+</difference>
+</columnStep>
+<columnStep actual="false" columnId="28" id="123" label="Delete column start_date of bookings" objectId="20" operation="delete">
+<difference>
+<oldState>
+<object className="Object">
+<object className="int" name="id"><![CDATA[28]]></object>
+<object className="String" name="name"><![CDATA[start_date]]></object>
+<object className="null" name="notes"/>
+<object className="int" name="dataType"><![CDATA[1]]></object>
+<object className="int" name="length"><![CDATA[0]]></object>
+<object className="int" name="precision"><![CDATA[0]]></object>
+<object className="int" name="scale"><![CDATA[0]]></object>
+<object className="null" name="defaultValue"/>
+<object className="Boolean" name="notNull"><![CDATA[true]]></object>
+<object className="Boolean" name="autoIncrement"><![CDATA[false]]></object>
+</object>
+</oldState>
+<newState>
+<object className="null"/>
+</newState>
+</difference>
+<preSteps>
+<tableStep actual="false" id="124" label="Modify table bookings" objectId="20" operation="modify">
+<difference>
+<oldState>
+<object className="Object">
+<object className="String" name="columnListOrder"><![CDATA[21,24,25,26,27,28,29]]></object>
+</object>
+</oldState>
+<newState>
+<object className="Object">
+<object className="String" name="columnListOrder"><![CDATA[21,24,25,26,27,29,28]]></object>
+</object>
+</newState>
+</difference>
+</tableStep>
+</preSteps>
+</columnStep>
+<columnStep actual="false" columnId="27" id="125" label="Delete column start_month of bookings" objectId="20" operation="delete">
+<difference>
+<oldState>
+<object className="Object">
+<object className="int" name="id"><![CDATA[27]]></object>
+<object className="String" name="name"><![CDATA[start_month]]></object>
+<object className="null" name="notes"/>
+<object className="int" name="dataType"><![CDATA[1]]></object>
+<object className="int" name="length"><![CDATA[0]]></object>
+<object className="int" name="precision"><![CDATA[0]]></object>
+<object className="int" name="scale"><![CDATA[0]]></object>
+<object className="null" name="defaultValue"/>
+<object className="Boolean" name="notNull"><![CDATA[true]]></object>
+<object className="Boolean" name="autoIncrement"><![CDATA[false]]></object>
+</object>
+</oldState>
+<newState>
+<object className="null"/>
+</newState>
+</difference>
+<preSteps>
+<tableStep actual="false" id="126" label="Modify table bookings" objectId="20" operation="modify">
+<difference>
+<oldState>
+<object className="Object">
+<object className="String" name="columnListOrder"><![CDATA[21,24,25,26,27,29]]></object>
+</object>
+</oldState>
+<newState>
+<object className="Object">
+<object className="String" name="columnListOrder"><![CDATA[21,24,25,26,29,27]]></object>
+</object>
+</newState>
+</difference>
+</tableStep>
+</preSteps>
+</columnStep>
+<columnStep actual="false" columnId="26" id="127" label="Modify column start_date of bookings" objectId="20" operation="modify">
+<difference>
+<oldState>
+<object className="Object">
+<object className="String" name="name"><![CDATA[start_year]]></object>
+<object className="int" name="dataType"><![CDATA[1]]></object>
+</object>
+</oldState>
+<newState>
+<object className="Object">
+<object className="String" name="name"><![CDATA[start_date]]></object>
+<object className="int" name="dataType"><![CDATA[22]]></object>
+</object>
+</newState>
+</difference>
+</columnStep>
+<columnStep actual="true" columnId="26" id="128" label="Modify column start_date of bookings" objectId="20" operation="modify">
+<difference>
+<oldState>
+<object className="Object">
+<object className="int" name="dataType"><![CDATA[22]]></object>
+<object className="int" name="length"><![CDATA[0]]></object>
+</object>
+</oldState>
+<newState>
+<object className="Object">
+<object className="int" name="dataType"><![CDATA[12]]></object>
+<object className="int" name="length"><![CDATA[10]]></object>
 </object>
 </newState>
 </difference>

@@ -16,6 +16,15 @@ const queryAllDbTablesByListingId = async (listingId) => {
   });
 };
 
+// const queryBookingInfoByListingId = async (listingId) => {
+//   const db = await preDb;
+
+//   return db.bookings.find({ listing_id: listingId }, {
+//     fields: ['user_id', 'start_date', 'duration'],
+//     only: true,
+//   });
+// };
+
 const insertBookingInfo = async (booking) => {
   const db = await preDb;
 
@@ -36,6 +45,7 @@ const updateBookingInfo = async (bookingId, updatedBookingInfo) => {
 
 module.exports = {
   queryAllDbTablesByListingId,
+  // queryBookingInfoByListingId,
   insertBookingInfo,
   deleteBookingInfo,
   updateBookingInfo,

@@ -49,7 +49,7 @@ class Booking extends Component {
   }
 
   componentDidMount() {
-    this.getRoomListing(parseInt(document.location.pathname.replace('/', ''), 10) + roomIdAdjustment);
+    this.getRoomListing(parseInt(document.location.pathname.replace('/', ''), 10));
   }
 
   onGuestPickerFocus() {
